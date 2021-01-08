@@ -2,7 +2,6 @@ package cn.anseon.proxy;
 
 import cn.anseon.constants.CommonConstants;
 import cn.anseon.domain.FastDomain;
-import org.apache.commons.lang3.time.DateUtils;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
@@ -11,7 +10,6 @@ import org.apache.velocity.app.VelocityEngine;
 import java.io.*;
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /**
