@@ -1,0 +1,17 @@
+package $!{basePackage}.controller;
+
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+/**
+ *
+ * @author $!{author}
+ * @date $!{date}
+ */
+@Slf4j
+@RestController
+@RequestMapping("$!{domainMapping}")
+public class $!{domain}Controller {
+
+}

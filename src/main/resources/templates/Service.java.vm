@@ -1,0 +1,10 @@
+package $!{basePackage}.service;
+
+/**
+ *
+ * @author $!{author}
+ * @date $!{date}
+ */
+public interface I$!{domain}Service {
+
+}

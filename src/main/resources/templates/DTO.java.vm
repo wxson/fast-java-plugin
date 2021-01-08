@@ -1,0 +1,21 @@
+package $!{basePackage}.domain.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
+
+/**
+ *
+ * @author $!{author}
+ * @date $!{date}
+ */
+@Data
+@Builder
+@Accessors(chain = true)
+@AllArgsConstructor
+@NoArgsConstructor
+public class $!{domain}DTO {
+
+}

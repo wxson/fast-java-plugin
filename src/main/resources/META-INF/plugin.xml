@@ -1,0 +1,34 @@
+<idea-plugin>
+    <id>cn.anseon.plugin.id</id>
+    <name>Fast Java</name>
+    <version>1.0</version>
+    <vendor email="ve_agui@163.com" url="http://www.anseon.cn">个人</vendor>
+
+    <description><![CDATA[
+      Fast-Dev is a fast code generation tool.Contains domains, Controllers, and commonly used service directories.And rely on the lazy-Tool library.
+    ]]></description>
+
+    <change-notes><![CDATA[
+      Initialize Fast-Dev the project, Version V1.0
+    ]]>
+    </change-notes>
+
+    <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+    <idea-version since-build="201"/>
+
+    <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+        <action id="cn.anseon.actions.FastJavaPopDialogAction" class="cn.anseon.actions.FastJavaPopDialogAction"
+                text="Fast Java Class" description="Agile business development with on click">
+            <add-to-group group-id="NewGroup" anchor="first"/>
+        </action>
+    </actions>
+</idea-plugin>
