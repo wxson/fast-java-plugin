@@ -2,7 +2,15 @@ package cn.anseon;
 
 import cn.anseon.domain.FastDomain;
 import cn.anseon.proxy.CodeGenerateProxy;
+import com.intellij.openapi.util.io.FileUtil;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.VelocityEngine;
 import org.junit.Test;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.Objects;
 
 /**
  * @author GR
@@ -11,7 +19,7 @@ import org.junit.Test;
 public class CodeGenerateTest {
 
     @Test
-    public void run() {
-        new CodeGenerateProxy().run(new FastDomain());
+    public void run() throws IOException {
+
     }
 }

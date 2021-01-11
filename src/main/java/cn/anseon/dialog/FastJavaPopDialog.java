@@ -20,8 +20,14 @@ public class FastJavaPopDialog extends JDialog {
     private JButton buttonCancel;
     private JTextField fastClassName;
     private JTextField fastClassProperty;
-    private String actionAbsoluteDir;
-    private String actionDir;
+    /**
+     * 右键绝对路劲
+     */
+    private final String actionAbsoluteDir;
+    /**
+     * 右键main/java 下的路劲
+     */
+    private final String actionDir;
 
     public FastJavaPopDialog(String actionAbsoluteDir, String actionDir) {
         setContentPane(contentPane);

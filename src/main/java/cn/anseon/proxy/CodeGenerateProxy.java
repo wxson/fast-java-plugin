@@ -2,13 +2,17 @@ package cn.anseon.proxy;
 
 import cn.anseon.constants.CommonConstants;
 import cn.anseon.domain.FastDomain;
-import org.apache.velocity.Template;
+import cn.anseon.utils.TemplateSettingUtils;
+import cn.anseon.utils.VelocityUtils;
+import com.intellij.openapi.util.io.FileUtil;
+import com.intellij.openapi.vfs.VfsUtil;
+import com.intellij.openapi.vfs.VirtualFileManager;
+import org.apache.commons.io.FileUtils;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.app.VelocityEngine;
 
 import java.io.*;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -39,28 +43,24 @@ public class CodeGenerateProxy {
     /**
      * 获取所有模板数据
      *
-     * @param fastDomain     新建信息
-     * @param velocityEngine velocity装载器
+     * @param fastDomain 新建信息
      * @return java.util.List<org.apache.velocity.Template>
      */
-    private Map<String, Template> findTemplates(FastDomain fastDomain, VelocityEngine velocityEngine) {
-        Map<String, Template> templateMap = new HashMap<>();
-        URL templatesUrl = this.getClass().getResource("/templates");
-        File templatesFile = new File(templatesUrl.getPath());
-        if (!templatesFile.isDirectory()) {
-            return templateMap;
+    private Map<String, String> findTemplates(FastDomain fastDomain) {
+        Map<String, String> templateMap = new HashMap<>();
+        // 获取模板与模板对象
+        Map<String, String> templatePathMap = TemplateSettingUtils.getTemplatePathMap();
+        for (String templateName : templatePathMap.keySet()) {
+            String targetFileName = fastDomain.getActionAbsoluteDir() + "\\" + this.buildTargetFile(fastDomain, templateName);
+            try {
+                String templateContent = FileUtil
+                        .loadTextAndClose(CodeGenerateProxy.class.getResourceAsStream(templatePathMap.get(templateName)));
+                templateMap.put(targetFileName, templateContent);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
-        File[] files = templatesFile.listFiles();
-        for (File file : files) {
-            String templateName = file.getName();
-            if (!templateName.endsWith(".vm")) {
-                continue;
-            }
-            String targetFileName = fastDomain.getActionAbsoluteDir() + "\\" + this.buildTargetFile(fastDomain, templateName);
-            Template template = velocityEngine.getTemplate("templates/" + templateName, "UTF-8");
-            templateMap.put(targetFileName, template);
-        }
         return templateMap;
     }
 
@@ -101,8 +101,8 @@ public class CodeGenerateProxy {
         //首字母大写
         String upperCase = fastDomain.getFastJavaClassName().substring(0, 1).toUpperCase();
         String fastJavaClassName = upperCase + fastDomain.getFastJavaClassName().substring(1);
-        // 获得模板名称：如：VO.java.vm ——> VO.java
-        templateName = templateName.substring(0, templateName.length() - 2);
+        // 获得模板名称：如：VO ——> VO.java
+        templateName += ".java";
         // 如果是接口
         if (templateName.startsWith(CommonConstants.DOMAIN_I_SERVICE_SUFFIX) && !templateName.startsWith(CommonConstants.DOMAIN_SERVICE_IMPL_SUFFIX)) {
             return baseDir + interfaceSuffix + fastJavaClassName + templateName;
@@ -114,26 +114,19 @@ public class CodeGenerateProxy {
     /**
      * 开始执行代码生成
      *
-     * @param fastDomain fast����
+     * @param fastDomain fast
      */
     private void startGeneraCode(FastDomain fastDomain) {
-        // init Properties
-        Properties properties = new Properties();
-        properties.setProperty("resource.loader", "class");
-        properties.setProperty("class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
-        properties.setProperty(Velocity.OUTPUT_ENCODING, "UTF-8");
-        properties.setProperty(Velocity.INPUT_ENCODING, "UTF-8");
-        Velocity.init(properties);
-        VelocityEngine velocityEngine = new VelocityEngine(properties);
-        VelocityContext velocityContext = new VelocityContext();
-        velocityContext.put("author", "Fast Java");
-        velocityContext.put("date", this.getCurrentDate());
-        velocityContext.put("basePackage", fastDomain.getActionDir().replace("/", "."));
-        velocityContext.put("domain", fastDomain.getFastJavaClassName());
-        velocityContext.put("domainMapping", fastDomain.getDomainMapping());
+        // 构建模板内相关属性
+        Map<String, Object> contextMap = new HashMap<>();
+        contextMap.put("author", "Fast Java");
+        contextMap.put("date", this.getCurrentDate());
+        contextMap.put("basePackage", fastDomain.getActionDir().replace("/", "."));
+        contextMap.put("domain", fastDomain.getFastJavaClassName());
+        contextMap.put("domainMapping", fastDomain.getDomainMapping());
 
         // 获取所有模板信息
-        Map<String, Template> templateMap = findTemplates(fastDomain, velocityEngine);
+        Map<String, String> templateMap = findTemplates(fastDomain);
         for (String targetFileName : templateMap.keySet()) {
             File targetFile = new File(targetFileName);
             try {
@@ -148,16 +141,19 @@ public class CodeGenerateProxy {
                 e.printStackTrace();
             }
 
-            try (FileOutputStream outStream = new FileOutputStream(targetFile);
-                 OutputStreamWriter writer = new OutputStreamWriter(outStream, "UTF-8");
-                 BufferedWriter bufferedWriter = new BufferedWriter(writer)) {
-                Template template = templateMap.get(targetFileName);
-                if (Objects.nonNull(template)) {
-                    template.merge(velocityContext, bufferedWriter);
+            for (String generateFileName : templateMap.keySet()) {
+                File file = new File(generateFileName);
+                try {
+                    FileUtils.writeStringToFile(file, VelocityUtils.evaluate(templateMap.get(generateFileName), contextMap), "utf8");
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
             }
+            // 刷新目录
+//            VirtualFileManager manager = VirtualFileManager.getInstance();
+//            manager.refreshAndFindFileByUrl(VfsUtil.pathToUrl(fastDomain.getActionDir()));
+            VirtualFileManager manager = VirtualFileManager.getInstance();
+            manager.refreshAndFindFileByUrl(VfsUtil.pathToUrl(fastDomain.getActionAbsoluteDir()));
         }
     }
 
