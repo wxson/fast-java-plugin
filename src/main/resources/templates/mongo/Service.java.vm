@@ -1,6 +1,6 @@
 package $!{basePackage}.service;
 
-import $!{basePackage}.domian.db.$!{domain}DO;
+import $!{basePackage}.domain.db.$!{domain}DO;
 import cn.anseon.fastjava.service.IMongoRepositoryService;
 
 /**

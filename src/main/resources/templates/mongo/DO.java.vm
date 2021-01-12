@@ -1,6 +1,6 @@
 package $!{basePackage}.domain.db;
 
-import $!{basePackage}.domian.vo.$!{domain}VO;
+import $!{basePackage}.domain.vo.$!{domain}VO;
 import cn.anseon.fastjava.domain.IBaseVO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

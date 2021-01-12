@@ -1,8 +1,8 @@
 package $!{basePackage}.controller;
 
 import $!{basePackage}.service.I$!{domain}Service;
-import $!{basePackage}.domian.dto.$!{domain}DTO;
-import $!{basePackage}.domian.db.$!{domain}DO;
+import $!{basePackage}.domain.dto.$!{domain}DTO;
+import $!{basePackage}.domain.db.$!{domain}DO;
 import cn.anseon.fastjava.controller.IBaseController;
 import cn.anseon.fastjava.service.IMongoRepositoryService;
 import lombok.AllArgsConstructor;
