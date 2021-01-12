@@ -5,11 +5,11 @@
     <vendor email="ve_agui@163.com" url="http://www.anseon.cn">个人</vendor>
 
     <description><![CDATA[
-      Fast-Dev is a fast code generation tool.Contains domains, Controllers, and commonly used service directories.And rely on the lazy-Tool library.
+      fast-java-plugin is a fast code generation tool.Contains domains, Controllers, and commonly used service directories.And rely on the fast-java library.
     ]]></description>
 
     <change-notes><![CDATA[
-      Initialize Fast-Dev the project, Version V1.0
+      Initialize fast-java-plugin the project, Version V1.0
     ]]>
     </change-notes>
 
