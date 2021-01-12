@@ -2,15 +2,13 @@ package cn.anseon.proxy;
 
 import cn.anseon.constants.CommonConstants;
 import cn.anseon.domain.FastDomain;
+import cn.anseon.utils.LocalFileUtils;
 import cn.anseon.utils.TemplateSettingUtils;
 import cn.anseon.utils.VelocityUtils;
 import com.intellij.openapi.util.io.FileUtil;
+import com.intellij.openapi.vfs.LocalFileSystem;
 import com.intellij.openapi.vfs.VfsUtil;
 import com.intellij.openapi.vfs.VirtualFileManager;
-import org.apache.commons.io.FileUtils;
-import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.Velocity;
-import org.apache.velocity.app.VelocityEngine;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -101,8 +99,6 @@ public class CodeGenerateProxy {
         //首字母大写
         String upperCase = fastDomain.getFastJavaClassName().substring(0, 1).toUpperCase();
         String fastJavaClassName = upperCase + fastDomain.getFastJavaClassName().substring(1);
-        // 获得模板名称：如：VO ——> VO.java
-        templateName += ".java";
         // 如果是接口
         if (templateName.startsWith(CommonConstants.DOMAIN_I_SERVICE_SUFFIX) && !templateName.startsWith(CommonConstants.DOMAIN_SERVICE_IMPL_SUFFIX)) {
             return baseDir + interfaceSuffix + fastJavaClassName + templateName;
@@ -129,31 +125,9 @@ public class CodeGenerateProxy {
         Map<String, String> templateMap = findTemplates(fastDomain);
         for (String targetFileName : templateMap.keySet()) {
             File targetFile = new File(targetFileName);
-            try {
-                if (!targetFile.getParentFile().exists()) {
-                    targetFile.getParentFile().mkdirs();
-                }
-
-                if (!targetFile.exists()) {
-                    targetFile.createNewFile();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            for (String generateFileName : templateMap.keySet()) {
-                File file = new File(generateFileName);
-                try {
-                    FileUtils.writeStringToFile(file, VelocityUtils.evaluate(templateMap.get(generateFileName), contextMap), "utf8");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+            LocalFileUtils.saveFile(targetFile, VelocityUtils.evaluate(templateMap.get(targetFileName), contextMap));
             // 刷新目录
-//            VirtualFileManager manager = VirtualFileManager.getInstance();
-//            manager.refreshAndFindFileByUrl(VfsUtil.pathToUrl(fastDomain.getActionDir()));
-            VirtualFileManager manager = VirtualFileManager.getInstance();
-            manager.refreshAndFindFileByUrl(VfsUtil.pathToUrl(fastDomain.getActionAbsoluteDir()));
+            LocalFileSystem.getInstance().refreshAndFindFileByIoFile(targetFile);
         }
     }
 

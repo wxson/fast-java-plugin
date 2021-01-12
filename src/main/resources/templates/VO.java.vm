@@ -17,5 +17,20 @@ import lombok.experimental.Accessors;
 @AllArgsConstructor
 @NoArgsConstructor
 public class $!{domain}VO {
-
+    /**
+     * 文档ID
+     */
+    private String id;
+    /**
+     * 创建用户
+     */
+    private String creatorAt;
+    /**
+     * 创建时间
+     */
+    private String createAt;
+    /**
+     * 更新时间
+     */
+    private String updateAt;
 }
