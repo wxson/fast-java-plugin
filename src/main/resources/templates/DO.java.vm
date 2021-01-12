@@ -32,6 +32,7 @@ public class $!{domain}DO {
     #foreach( $property in $!{propertyList} )
 private ${property.type} ${property.name};
     #end
+
     /**
      * 创建用户
      */

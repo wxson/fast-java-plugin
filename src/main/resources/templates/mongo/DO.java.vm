@@ -35,6 +35,7 @@ public class $!{domain}DO implements IBaseDO<$!{domain}VO> {
     #foreach( $property in $!{propertyList} )
 private ${property.type} ${property.name};
     #end
+
     /**
      * 创建用户
      */

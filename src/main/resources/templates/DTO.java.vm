@@ -30,4 +30,5 @@ public class $!{domain}DTO {
     #foreach( $property in $!{propertyList} )
 private ${property.type} ${property.name};
     #end
+
 }
