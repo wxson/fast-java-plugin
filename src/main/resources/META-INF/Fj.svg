@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12">
+  <defs>
+    <style>
+      .cls-1 {
+        font-size: 36px;
+        fill: #f63606;
+        font-family: SimSun;
+      }
+
+      .cls-2 {
+        fill: #2e06f6;
+      }
+    </style>
+  </defs>
+  <text id="Fj" class="cls-1" transform="translate(0.139 9.678) scale(0.343)">F<tspan class="cls-2">j</tspan></text>
+</svg>

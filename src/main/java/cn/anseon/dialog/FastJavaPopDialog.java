@@ -3,9 +3,13 @@ package cn.anseon.dialog;
 import cn.anseon.constants.CommonConstants;
 import cn.anseon.domain.FastDomain;
 import cn.anseon.proxy.CodeGenerateProxy;
+import com.intellij.openapi.project.Project;
+import com.intellij.openapi.ui.DialogWrapper;
 import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 
 /**
@@ -14,10 +18,8 @@ import java.awt.event.*;
  * @author GR
  * @date 2021-1-5 17:28
  */
-public class FastJavaPopDialog extends JDialog {
+public class FastJavaPopDialog extends DialogWrapper {
     private JPanel contentPane;
-    private JButton buttonConfirm;
-    private JButton buttonCancel;
     private JTextField fastClassName;
     private JTextField fastClassProperty;
     /**
@@ -29,59 +31,16 @@ public class FastJavaPopDialog extends JDialog {
      */
     private final String actionDir;
 
-    public FastJavaPopDialog(String actionAbsoluteDir, String actionDir) {
-        setContentPane(contentPane);
-        setModal(true);
-        getRootPane().setDefaultButton(buttonConfirm);
+    public FastJavaPopDialog(Project project, String actionAbsoluteDir, String actionDir) {
+        super(project);
+        super.init();
+        super.setTitle("New Fast Java");
         this.actionAbsoluteDir = actionAbsoluteDir;
         this.actionDir = actionDir;
-        this.registerEvent();
     }
 
-    /**
-     * 注册事件
-     */
-    private void registerEvent() {
-        // 点击确认
-        buttonConfirm.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                onClickConfirmEvent();
-            }
-        });
-
-        // 点击取消
-        buttonCancel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                onClickCancelEvent();
-            }
-        });
-
-        // call onCancel() when cross is clicked
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                onClickCancelEvent();
-            }
-        });
-
-        // call onCancel() on ESCAPE
-        contentPane.registerKeyboardAction(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                onClickCancelEvent();
-            }
-        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-    }
-
-    /**
-     * 点击确认事件
-     */
-    private void onClickConfirmEvent() {
-        // add your code here
-        dispose();
+    @Override
+    protected void doOKAction() {
         // 获取输入的类名
         String fastClassNameText = fastClassName.getText();
         if (StringUtils.isBlank(fastClassNameText)) {
@@ -113,15 +72,11 @@ public class FastJavaPopDialog extends JDialog {
                 .setFastJavaClassPropertyJson(fastClassPropertyText);
         // 执行代码生成
         CodeGenerateProxy.getInstance().run(fastDomain);
+        super.close(OK_EXIT_CODE);
     }
 
-    /**
-     * 点击取消事件
-     */
-    private void onClickCancelEvent() {
-        // add your code here if necessary
-        dispose();
-        fastClassName.setText("");
-        fastClassProperty.setText("");
+    @Override
+    protected @Nullable JComponent createCenterPanel() {
+        return contentPane;
     }
 }

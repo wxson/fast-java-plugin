@@ -27,7 +27,7 @@
     <actions>
         <!-- Add your actions here -->
         <action id="cn.anseon.actions.FastJavaPopDialogAction" class="cn.anseon.actions.FastJavaPopDialogAction"
-                text="Fast Java Class" description="Agile business development with on click">
+                text="Fast Java Class" description="Agile business development with on click" icon="/META-INF/Fj.svg">
             <add-to-group group-id="NewGroup" anchor="first"/>
         </action>
     </actions>

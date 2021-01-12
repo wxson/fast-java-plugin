@@ -43,18 +43,7 @@ public class FastJavaPopDialogAction extends AnAction {
             return;
         }
 
-        this.initFastDevPopDialog(virtualFile.getPath(), actionDir);
-    }
-
-    /**
-     * 显示FastDevPopDialog
-     *
-     * @param actionAbsoluteDir action绝对路径
-     * @param actionDir         action目录
-     */
-    private void initFastDevPopDialog(String actionAbsoluteDir, String actionDir) {
-        FastJavaPopDialog dialog = new FastJavaPopDialog(actionAbsoluteDir, actionDir);
-        dialog.pack();
-        dialog.setVisible(true);
+        FastJavaPopDialog dialog = new FastJavaPopDialog(project, virtualFile.getPath(), actionDir);
+        dialog.show();
     }
 }
