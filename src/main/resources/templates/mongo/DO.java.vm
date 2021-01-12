@@ -9,6 +9,12 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+#foreach( $property in $!{propertyList} )
+#if($!property.type == "List")
+import java.util.List;
+#end
+#end
+
 /**
  *
  * @author $!{author}
@@ -25,6 +31,10 @@ public class $!{domain}DO implements IBaseDO<$!{domain}VO> {
      * 文档ID
      */
     private String id;
+
+    #foreach( $property in $!{propertyList} )
+private ${property.type} ${property.name};
+    #end
     /**
      * 创建用户
      */

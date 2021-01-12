@@ -12,7 +12,7 @@ repositories {
 }
 
 dependencies {
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.6'
+    compile 'com.alibaba:fastjson:1.2.73'
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.4.0'
     compileOnly 'org.projectlombok:lombok:1.18.16'

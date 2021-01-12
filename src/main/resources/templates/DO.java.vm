@@ -5,7 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+#foreach( $property in $!{propertyList} )
+#if($!property.type == "List")
+import java.util.List;
+#end
+#end
 /**
  *
  * @author $!{author}
@@ -16,11 +22,16 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @AllArgsConstructor
 @NoArgsConstructor
+@Document("db_$!{domainLow}")
 public class $!{domain}DO {
     /**
      * 文档ID
      */
     private String id;
+
+    #foreach( $property in $!{propertyList} )
+private ${property.type} ${property.name};
+    #end
     /**
      * 创建用户
      */

@@ -2,6 +2,8 @@ package cn.anseon.domain;
 
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * @author GR
  * @date 2021-1-7 15:00
@@ -12,20 +14,6 @@ public class FastDomain {
      * Request 请求映射
      */
     private String domainMapping;
-
-    public Boolean getDependFastJava() {
-        return dependFastJava;
-    }
-
-    public FastDomain setDependFastJava(Boolean dependFastJava) {
-        this.dependFastJava = dependFastJava;
-        return this;
-    }
-
-    public String getFastJavaClassName() {
-        return fastJavaClassName;
-    }
-
     /**
      * 是否依赖fast-java
      */
@@ -45,7 +33,20 @@ public class FastDomain {
     /**
      * 新建类属性 json数据
      */
-    private String fastJavaClassPropertyJson;
+    private List<Property> propertyList;
+
+    public Boolean getDependFastJava() {
+        return dependFastJava;
+    }
+
+    public FastDomain setDependFastJava(Boolean dependFastJava) {
+        this.dependFastJava = dependFastJava;
+        return this;
+    }
+
+    public String getFastJavaClassName() {
+        return fastJavaClassName;
+    }
 
     /**
      * 重写设置类名方法，目的创建domainMapping
@@ -86,12 +87,12 @@ public class FastDomain {
         return this;
     }
 
-    public String getFastJavaClassPropertyJson() {
-        return fastJavaClassPropertyJson;
+    public List<Property> getPropertyList() {
+        return propertyList;
     }
 
-    public FastDomain setFastJavaClassPropertyJson(String fastJavaClassPropertyJson) {
-        this.fastJavaClassPropertyJson = fastJavaClassPropertyJson;
+    public FastDomain setPropertyList(List<Property> propertyList) {
+        this.propertyList = propertyList;
         return this;
     }
 }

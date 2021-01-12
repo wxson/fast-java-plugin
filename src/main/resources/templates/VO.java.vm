@@ -6,6 +6,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+#foreach( $property in $!{propertyList} )
+#if($!property.type == "List")
+import java.util.List;
+#end
+#end
 /**
  *
  * @author $!{author}
@@ -21,6 +26,10 @@ public class $!{domain}VO {
      * 文档ID
      */
     private String id;
+
+    #foreach( $property in $!{propertyList} )
+private ${property.type} ${property.name};
+    #end
     /**
      * 创建用户
      */

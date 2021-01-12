@@ -1,16 +1,12 @@
 package cn.anseon;
 
-import cn.anseon.domain.FastDomain;
-import cn.anseon.proxy.CodeGenerateProxy;
-import com.intellij.openapi.util.io.FileUtil;
-import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.VelocityEngine;
+import cn.anseon.domain.Property;
+import com.alibaba.fastjson.JSON;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * @author GR
@@ -20,6 +16,32 @@ public class CodeGenerateTest {
 
     @Test
     public void run() throws IOException {
+        String str = "{\"name\":\"小明\",\"sex\":\"男\",\"age\":20,\"amount\":20.0,\"bean\":{\"account\":\"1234\"},\"list\":[{\"account\":\"1234\"}]}";
+        ArrayList<Property> propertyList = new ArrayList<>();
+        Map map = JSON.parseObject(str, Map.class);
+        for (Object key : map.keySet()) {
+            Property property = new Property();
+            property.setName(key.toString());
+            Object value = map.get(key);
+            String typeName = value.getClass().getTypeName();
+            // 获取属性类型
+            typeName = typeName.substring(typeName.lastIndexOf(".") + 1);
+            if ("BigDecimal".equals(typeName)) {
+                typeName = "Double";
+            }
+
+            if ("JSONObject".equals(typeName)) {
+                typeName = "Object";
+            }
+
+            if ("JSONArray".equals(typeName)) {
+                typeName = "List";
+            }
+
+            property.setType(typeName);
+            System.out.println(property);
+            propertyList.add(property);
+        }
 
     }
 }
