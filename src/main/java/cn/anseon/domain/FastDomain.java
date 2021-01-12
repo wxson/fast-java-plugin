@@ -1,14 +1,35 @@
 package cn.anseon.domain;
 
+import lombok.Data;
+
 /**
  * @author GR
  * @date 2021-1-7 15:00
  */
+@Data
 public class FastDomain {
     /**
      * Request 请求映射
      */
     private String domainMapping;
+
+    public Boolean getDependFastJava() {
+        return dependFastJava;
+    }
+
+    public FastDomain setDependFastJava(Boolean dependFastJava) {
+        this.dependFastJava = dependFastJava;
+        return this;
+    }
+
+    public String getFastJavaClassName() {
+        return fastJavaClassName;
+    }
+
+    /**
+     * 是否依赖fast-java
+     */
+    private Boolean dependFastJava;
     /**
      * action 目录
      */
@@ -17,11 +38,6 @@ public class FastDomain {
      * action绝对路径
      */
     private String actionAbsoluteDir;
-
-    public String getFastJavaClassName() {
-        return fastJavaClassName;
-    }
-
     /**
      * 类名称
      */

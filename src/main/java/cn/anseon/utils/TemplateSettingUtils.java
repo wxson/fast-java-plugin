@@ -12,11 +12,11 @@ import java.util.Map;
 public class TemplateSettingUtils {
 
     /**
-     * 获取模板数据
+     * 获取默认模板数据
      *
      * @return java.util.Map<java.lang.String, java.lang.String>
      */
-    public static Map<String, String> getTemplatePathMap() {
+    public static Map<String, String> getDefaultTemplatePathMap() {
         Map<String, String> templateMap = new HashMap<>();
         templateMap.put("Controller.java", "/templates/Controller.java.vm");
         templateMap.put("Service.java", "/templates/Service.java.vm");
@@ -24,6 +24,22 @@ public class TemplateSettingUtils {
         templateMap.put("DTO.java", "/templates/DTO.java.vm");
         templateMap.put("DO.java", "/templates/DO.java.vm");
         templateMap.put("VO.java", "/templates/VO.java.vm");
+        return templateMap;
+    }
+
+    /**
+     * 获取默认模板数据
+     *
+     * @return java.util.Map<java.lang.String, java.lang.String>
+     */
+    public static Map<String, String> getFastJavaTemplatePathMap() {
+        Map<String, String> templateMap = new HashMap<>();
+        templateMap.put("Controller.java", "/templates/fastjava/Controller.java.vm");
+        templateMap.put("Service.java", "/templates/fastjava/Service.java.vm");
+        templateMap.put("ServiceImpl.java", "/templates/fastjava/ServiceImpl.java.vm");
+        templateMap.put("DTO.java", "/templates/fastjava/DTO.java.vm");
+        templateMap.put("DO.java", "/templates/fastjava/DO.java.vm");
+        templateMap.put("VO.java", "/templates/fastjava/VO.java.vm");
         return templateMap;
     }
 }

@@ -7,8 +7,6 @@ import cn.anseon.utils.TemplateSettingUtils;
 import cn.anseon.utils.VelocityUtils;
 import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.openapi.vfs.LocalFileSystem;
-import com.intellij.openapi.vfs.VfsUtil;
-import com.intellij.openapi.vfs.VirtualFileManager;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -47,7 +45,14 @@ public class CodeGenerateProxy {
     private Map<String, String> findTemplates(FastDomain fastDomain) {
         Map<String, String> templateMap = new HashMap<>();
         // 获取模板与模板对象
-        Map<String, String> templatePathMap = TemplateSettingUtils.getTemplatePathMap();
+        Map<String, String> templatePathMap = null;
+        // 依赖fast-java
+        if (fastDomain.getDependFastJava()) {
+            templatePathMap = TemplateSettingUtils.getFastJavaTemplatePathMap();
+        } else {
+            templatePathMap = TemplateSettingUtils.getDefaultTemplatePathMap();
+        }
+
         for (String templateName : templatePathMap.keySet()) {
             String targetFileName = fastDomain.getActionAbsoluteDir() + "\\" + this.buildTargetFile(fastDomain, templateName);
             try {

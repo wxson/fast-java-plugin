@@ -1,0 +1,12 @@
+package $!{basePackage}.service.impl;
+
+import $!{basePackage}.service.I$!{domain}Service;
+
+/**
+ *
+ * @author $!{author}
+ * @date $!{date}
+ */
+public class $!{domain}ServiceImpl implements I$!{domain}Service {
+
+}

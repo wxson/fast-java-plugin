@@ -22,6 +22,7 @@ public class FastJavaPopDialog extends DialogWrapper {
     private JPanel contentPane;
     private JTextField fastClassName;
     private JTextField fastClassProperty;
+    private JCheckBox tipsTickDependsOnCheckBox;
     /**
      * 右键绝对路劲
      */
@@ -70,6 +71,12 @@ public class FastJavaPopDialog extends DialogWrapper {
                 .setActionAbsoluteDir(actionAbsoluteDir)
                 .setFastJavaClassName(fastClassNameText)
                 .setFastJavaClassPropertyJson(fastClassPropertyText);
+
+        // 是否依赖fast-java库
+        if (tipsTickDependsOnCheckBox.isSelected()) {
+            fastDomain.setDependFastJava(true);
+        }
+        
         // 执行代码生成
         CodeGenerateProxy.getInstance().run(fastDomain);
         super.close(OK_EXIT_CODE);
