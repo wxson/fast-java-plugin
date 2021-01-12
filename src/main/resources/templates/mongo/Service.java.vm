@@ -1,0 +1,13 @@
+package $!{basePackage}.service;
+
+import $!{basePackage}.domian.db.$!{domain}DO;
+import cn.anseon.fastjava.service.IMongoRepositoryService;
+
+/**
+ * $!{domain} 业务逻辑层
+ * @author $!{author}
+ * @date $!{date}
+ */
+public interface I$!{domain}Service extends IMongoRepositoryService<$!{domain}DO, String> {
+
+}

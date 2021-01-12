@@ -1,5 +1,6 @@
-package $!{basePackage}.domain.db;
+package $!{basePackage}.domain.vo;
 
+import cn.anseon.fastjava.domain.IBaseVO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,7 +17,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class $!{domain}DO {
+public class $!{domain}VO implements IBaseVO {
     /**
      * 文档ID
      */

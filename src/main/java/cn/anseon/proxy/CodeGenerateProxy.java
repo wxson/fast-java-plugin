@@ -124,6 +124,7 @@ public class CodeGenerateProxy {
         contextMap.put("date", this.getCurrentDate());
         contextMap.put("basePackage", fastDomain.getActionDir().replace("/", "."));
         contextMap.put("domain", fastDomain.getFastJavaClassName());
+        contextMap.put("domainLow", fastDomain.getFastJavaClassName().substring(0, 1).toLowerCase() + fastDomain.getFastJavaClassName().substring(1));
         contextMap.put("domainMapping", fastDomain.getDomainMapping());
 
         // 获取所有模板信息

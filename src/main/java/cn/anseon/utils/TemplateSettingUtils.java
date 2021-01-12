@@ -34,12 +34,12 @@ public class TemplateSettingUtils {
      */
     public static Map<String, String> getFastJavaTemplatePathMap() {
         Map<String, String> templateMap = new HashMap<>();
-        templateMap.put("Controller.java", "/templates/fastjava/Controller.java.vm");
-        templateMap.put("Service.java", "/templates/fastjava/Service.java.vm");
-        templateMap.put("ServiceImpl.java", "/templates/fastjava/ServiceImpl.java.vm");
-        templateMap.put("DTO.java", "/templates/fastjava/DTO.java.vm");
-        templateMap.put("DO.java", "/templates/fastjava/DO.java.vm");
-        templateMap.put("VO.java", "/templates/fastjava/VO.java.vm");
+        templateMap.put("Controller.java", "/templates/mongo/Controller.java.vm");
+        templateMap.put("Service.java", "/templates/mongo/Service.java.vm");
+        templateMap.put("ServiceImpl.java", "/templates/mongo/ServiceImpl.java.vm");
+        templateMap.put("DTO.java", "/templates/mongo/DTO.java.vm");
+        templateMap.put("DO.java", "/templates/mongo/DO.java.vm");
+        templateMap.put("VO.java", "/templates/mongo/VO.java.vm");
         return templateMap;
     }
 }

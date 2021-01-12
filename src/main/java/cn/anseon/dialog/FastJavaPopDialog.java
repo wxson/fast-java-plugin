@@ -69,6 +69,7 @@ public class FastJavaPopDialog extends DialogWrapper {
         FastDomain fastDomain = new FastDomain()
                 .setActionDir(actionDir)
                 .setActionAbsoluteDir(actionAbsoluteDir)
+                .setDependFastJava(false)
                 .setFastJavaClassName(fastClassNameText)
                 .setFastJavaClassPropertyJson(fastClassPropertyText);
 
@@ -76,7 +77,7 @@ public class FastJavaPopDialog extends DialogWrapper {
         if (tipsTickDependsOnCheckBox.isSelected()) {
             fastDomain.setDependFastJava(true);
         }
-        
+
         // 执行代码生成
         CodeGenerateProxy.getInstance().run(fastDomain);
         super.close(OK_EXIT_CODE);

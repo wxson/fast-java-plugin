@@ -1,0 +1,40 @@
+package $!{basePackage}.domain.db;
+
+import $!{basePackage}.domian.vo.$!{domain}VO;
+import cn.anseon.fastjava.domain.IBaseVO;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+/**
+ *
+ * @author $!{author}
+ * @date $!{date}
+ */
+@Data
+@Builder
+@Accessors(chain = true)
+@AllArgsConstructor
+@NoArgsConstructor
+@Document("db_$!{domainLow}")
+public class $!{domain}DO implements IBaseDO<$!{domain}VO> {
+    /**
+     * 文档ID
+     */
+    private String id;
+    /**
+     * 创建用户
+     */
+    private String creatorAt;
+    /**
+     * 创建时间
+     */
+    private String createAt;
+    /**
+     * 更新时间
+     */
+    private String updateAt;
+}

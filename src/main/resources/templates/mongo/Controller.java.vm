@@ -1,0 +1,30 @@
+package $!{basePackage}.controller;
+
+import $!{basePackage}.service.I$!{domain}Service;
+import $!{basePackage}.domian.dto.$!{domain}DTO;
+import $!{basePackage}.domian.db.$!{domain}DO;
+import cn.anseon.fastjava.controller.IBaseController;
+import cn.anseon.fastjava.service.IMongoRepositoryService;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+/**
+ *
+ * @author $!{author}
+ * @date $!{date}
+ */
+@Slf4j
+@RestController
+@RequestMapping("$!{domainMapping}")
+@AllArgsConstructor
+public class $!{domain}Controller implements IBaseController<$!{domain}DTO> {
+
+    private final I$!{domain}Service $!{domainLow}Service;
+
+    @Override
+    public IMongoRepositoryService<$!{domain}DO, String> getMongoRepositoryService() {
+        return $!{domainLow}Service;
+    }
+}
