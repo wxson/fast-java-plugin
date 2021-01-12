@@ -28,9 +28,6 @@ public class $!{domain}DTO implements IBaseDTO<$!{domain}DO> {
      * 文档ID
      */
     private String id;
-
-    #foreach( $property in $!{propertyList} )
-private ${property.type} ${property.name};
-    #end
-
-}
+#foreach( $property in $!{propertyList} )
+    private ${property.type} ${property.name};
+#end}

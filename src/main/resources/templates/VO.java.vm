@@ -26,12 +26,9 @@ public class $!{domain}VO {
      * 文档ID
      */
     private String id;
-
     #foreach( $property in $!{propertyList} )
 private ${property.type} ${property.name};
-    #end
-
-    /**
+    #end/**
      * 创建用户
      */
     private String creatorAt;
