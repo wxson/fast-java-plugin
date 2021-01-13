@@ -24,6 +24,7 @@ velocity.log.1
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
+/gif/
 /nbdist/
 /.nb-gradle/
 /.gradle/
