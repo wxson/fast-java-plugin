@@ -2,7 +2,7 @@
 fast-java-plugin is a fast code generation tool.Contains domains, Controllers, and commonly used service directories.And rely on the fast-java library.   
 _Tips: For now, only MongoDB is supported_
 ## Matches artillery
-![](https://github.com/ve-agui/fast-java-plugin/blob/master/gif/example.gif)
+![](/gif/example.gif)
 ## fast-java-plugin goals
 * Save tedious and repetitive creation operation;
 * Quickly create entity objects from JSON strings;
