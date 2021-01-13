@@ -27,9 +27,13 @@ public class $!{domain}VO implements IBaseVO {
      * 文档ID
      */
     private String id;
-    #foreach( $property in $!{propertyList} )
-private ${property.type} ${property.name};
-    #end/**
+#foreach( $property in $!{propertyList} )
+    /**
+     *
+     */
+    private ${property.type} ${property.name};
+#end
+    /**
      * 创建用户
      */
     private String creatorAt;

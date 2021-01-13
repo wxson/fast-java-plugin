@@ -27,5 +27,8 @@ public class $!{domain}DTO {
      */
     private String id;
 #foreach( $property in $!{propertyList} )
+    /**
+     *
+     */
     private ${property.type} ${property.name};
 #end}

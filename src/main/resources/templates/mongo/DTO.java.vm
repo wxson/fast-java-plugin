@@ -29,5 +29,8 @@ public class $!{domain}DTO implements IBaseDTO<$!{domain}DO> {
      */
     private String id;
 #foreach( $property in $!{propertyList} )
+    /**
+     *
+     */
     private ${property.type} ${property.name};
 #end}
