@@ -21,7 +21,13 @@
 ]]></description>
 
     <change-notes><![CDATA[
-      Initialize fast-java-plugin the project, Version V1.0
+      <div>Initialize fast-java-plugin the project, Version V1.0</div>
+      <div>
+            <ul>
+                <li>Compression plug-in volume</li>
+                <li>Remove unnecessary dependencies</li>
+            </ul>
+      </div>
     ]]>
     </change-notes>
 
