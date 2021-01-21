@@ -27,6 +27,10 @@ intellij {
 }
 patchPluginXml {
     changeNotes """
-      Add change notes here.<br>
-      <em>most HTML tags may be used</em>"""
+      <div>
+            <ul>
+                <li>Compression plug-in volume</li>
+                <li>Remove unnecessary dependencies</li>
+            </ul>
+      </div>"""
 }
