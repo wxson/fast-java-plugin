@@ -1,7 +1,5 @@
 package cn.anseon.domain;
 
-import lombok.Data;
-
 /**
  * 属性值
  *

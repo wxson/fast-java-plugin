@@ -1,14 +1,11 @@
 package cn.anseon.domain;
 
-import lombok.Data;
-
 import java.util.List;
 
 /**
  * @author GR
  * @date 2021-1-7 15:00
  */
-@Data
 public class FastDomain {
     /**
      * Request 请求映射
@@ -94,5 +91,17 @@ public class FastDomain {
     public FastDomain setPropertyList(List<Property> propertyList) {
         this.propertyList = propertyList;
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return "FastDomain{" +
+                "domainMapping='" + domainMapping + '\'' +
+                ", dependFastJava=" + dependFastJava +
+                ", actionDir='" + actionDir + '\'' +
+                ", actionAbsoluteDir='" + actionAbsoluteDir + '\'' +
+                ", fastJavaClassName='" + fastJavaClassName + '\'' +
+                ", propertyList=" + propertyList +
+                '}';
     }
 }
