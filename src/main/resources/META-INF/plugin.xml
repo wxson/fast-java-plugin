@@ -6,8 +6,18 @@
 
     <description><![CDATA[
     <h3>Fast-Java-Plugin</h3>
-      fast-java-plugin is a fast code generation tool.Contains domains, Controllers, and commonly used service directories.And rely on the fast-java library.<br />
-      support build #IU-181.*
+		<div>fast-java-plugin is a fast code generation tool.</div>
+		<div>support build #IU-181.*</div>
+		<div>
+			Contains directories.
+			<ul>
+				<li>domain</li>
+				<li>controller</li>
+				<li>service</li>
+				<li>service.impl</li>
+			</ul>
+		</div>
+		<div>At the same time, it supports relying on Fast-Java library, Fast-Java library, an agile development library based on MongoDB.</div>
 ]]></description>
 
     <change-notes><![CDATA[

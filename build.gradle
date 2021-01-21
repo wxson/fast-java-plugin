@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'cn.anseon'
-version '1.0-SNAPSHOT'
+version '1.0'
 
 repositories {
     repositories { maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' } }
