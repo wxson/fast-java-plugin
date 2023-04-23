@@ -6,7 +6,6 @@ import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
-import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
@@ -38,8 +37,13 @@ public class FastJavaPopDialogAction extends AnAction {
         }
 
         // 截取src/main/java后的action路劲
-        String actionDir = StringUtils.substringAfter(virtualFile.getPath(), "src/main/java/");
-        if (StringUtils.isBlank(actionDir)) {
+        String path = virtualFile.getPath();
+        if ("".equals(path)) {
+            return;
+        }
+        int index = path.indexOf("src/main/java/");
+        String actionDir = path.substring(index + 14);
+        if ("".equals(actionDir)) {
             return;
         }
 

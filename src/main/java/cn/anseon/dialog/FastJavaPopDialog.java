@@ -8,7 +8,6 @@ import cn.anseon.proxy.CodeGenerateProxy;
 import com.alibaba.fastjson.JSON;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.DialogWrapper;
-import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
@@ -49,7 +48,7 @@ public class FastJavaPopDialog extends DialogWrapper {
     @Override
     protected void doOKAction() {
         String fastClassNameText = fastClassName.getText();
-        if (StringUtils.isBlank(fastClassNameText)) {
+        if ("".equals(fastClassNameText)) {
             return;
         }
 
@@ -98,7 +97,7 @@ public class FastJavaPopDialog extends DialogWrapper {
      * @param fastClassPropertyText 属性json字符串
      */
     private void buildProperty(FastDomain fastDomain, String fastClassPropertyText) {
-        if (StringUtils.isBlank(fastClassPropertyText)) {
+        if ("".equals(fastClassPropertyText)) {
             return;
         }
 
