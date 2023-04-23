@@ -9,6 +9,7 @@ package cn.anseon.domain;
 public class Property {
     private String type;
     private String name;
+    private String camelCaseName;
 
     public String getType() {
         return type;
@@ -26,11 +27,20 @@ public class Property {
         this.name = name;
     }
 
+    public String getCamelCaseName() {
+        return camelCaseName;
+    }
+
+    public void setCamelCaseName(String camelCaseName) {
+        this.camelCaseName = camelCaseName;
+    }
+
     @Override
     public String toString() {
         return "Property{" +
                 "type='" + type + '\'' +
                 ", name='" + name + '\'' +
+                ", camelCaseName='" + camelCaseName + '\'' +
                 '}';
     }
 }

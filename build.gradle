@@ -4,7 +4,11 @@ plugins {
 }
 
 group 'cn.anseon'
-version '1.0'
+version '1.0.1'
+
+runIde {
+    jvmArgs '--add-exports', 'java.base/jdk.internal.vm=ALL-UNNAMED'
+}
 
 repositories {
     repositories { maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' } }
@@ -31,6 +35,7 @@ patchPluginXml {
             <ul>
                 <li>Compression plug-in volume</li>
                 <li>Remove unnecessary dependencies</li>
+                <li>Simplify traditional business logic operations</li>
             </ul>
       </div>"""
 }

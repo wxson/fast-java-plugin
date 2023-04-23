@@ -12,6 +12,7 @@ import java.util.List;
 #end
 #end
 /**
+ * $!{domain}请求数据
  *
  * @author $!{author}
  * @date $!{date}
@@ -25,10 +26,28 @@ public class $!{domain}DTO {
     /**
      * 文档ID
      */
+#if($!{persistenceType} == "MYSQL")
+    private Long id;
+#end
+#if($!{persistenceType} == "MONGODB")
     private String id;
+#end
 #foreach( $property in $!{propertyList} )
     /**
      *
      */
     private ${property.type} ${property.name};
-#end}
+#end
+    /**
+     * 创建用户
+     */
+    private String creatorAt;
+    /**
+     * 创建时间
+     */
+    private String createAt;
+    /**
+     * 更新时间
+     */
+    private String updateAt;
+}

@@ -1,7 +1,5 @@
-package $!{basePackage}.domain.dto;
+package $!{basePackage}.domain.vo;
 
-import $!{basePackage}.domain.db.$!{domain}DO;
-import cn.anseon.fastjava.domain.IBaseDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,6 +12,7 @@ import java.util.List;
 #end
 #end
 /**
+ * $!{domain}展示数据
  *
  * @author $!{author}
  * @date $!{date}
@@ -23,14 +22,32 @@ import java.util.List;
 @Accessors(chain = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class $!{domain}DTO implements IBaseDTO<$!{domain}DO> {
+public class $!{domain}VO {
     /**
      * 文档ID
      */
+#if($!{persistenceType} == "MYSQL")
+    private Long id;
+#end
+#if($!{persistenceType} == "MONGODB")
     private String id;
+#end
 #foreach( $property in $!{propertyList} )
     /**
      *
      */
     private ${property.type} ${property.name};
-#end}
+#end
+    /**
+     * 创建用户
+     */
+    private String creatorAt;
+    /**
+     * 创建时间
+     */
+    private String createAt;
+    /**
+     * 更新时间
+     */
+    private String updateAt;
+}

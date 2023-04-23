@@ -1,0 +1,95 @@
+package $!{basePackage}.service.impl;
+
+import $!{basePackage}.domain.dto.$!{domain}DTO;
+import $!{basePackage}.domain.db.$!{domain}DO;
+import $!{basePackage}.domain.vo.$!{domain}VO;
+import $!{basePackage}.service.I$!{domain}Service;
+import $!{basePackage}.converter.$!{domain}Converter;
+import $!{basePackage}.repository.$!{domain}Repository;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.util.*;
+
+/**
+ * $!{domain} 业务逻辑
+ *
+ * @author $!{author}
+ * @date $!{date}
+ */
+@Slf4j
+@Service
+public class $!{domain}ServiceImpl implements I$!{domain}Service {
+
+    @Autowired
+    private $!{domain}Repository $!{domainLow}Repository;
+
+    @Override
+    @Transactional
+    public $!{domain}VO save($!{domain}DTO $!{domainLow}DTO) {
+        // 转换成DO对象
+        $!{domain}DO $!{domainLow} = $!{domain}Converter.convertTo($!{domainLow}DTO);
+        // TODO 校验逻辑
+
+        // 存储
+        $!{domainLow}Repository.save($!{domainLow});
+        // 转换对象
+        return $!{domain}Converter.convertTo($!{domainLow});
+    }
+
+    @Override
+    @Transactional
+    public $!{domain}VO update($!{domain}DTO $!{domainLow}DTO) {
+        // 转换成DO对象
+        $!{domain}DO $!{domainLow} = $!{domain}Converter.convertTo($!{domainLow}DTO);
+        if (Objects.isNull($!{domainLow}.getId())) {
+            throw new RuntimeException("当前更新对象ID为空");
+        }
+        // TODO 业务逻辑校验
+
+        // 更新
+        $!{domainLow}Repository.save($!{domainLow});
+        // 转换对象
+        return $!{domain}Converter.convertTo($!{domainLow});
+    }
+
+    @Override
+    @Transactional
+    public Boolean removeById(Long $!{domainLow}Id) {
+        // TODO 业务逻辑校验
+
+        // 删除
+        $!{domainLow}Repository.deleteById($!{domainLow}Id);
+        return true;
+    }
+
+    @Override
+    public $!{domain}VO detailById(Long $!{domainLow}Id) {
+        // TODO 业务逻辑校验
+
+        // 删除
+        $!{domain}DO $!{domainLow} = $!{domainLow}Repository.findById($!{domainLow}Id)
+                .orElseThrow(() -> new RuntimeException("当前数据不存在"));
+        // 转换对象
+        return $!{domain}Converter.convertTo($!{domainLow});
+    }
+
+    @Override
+    public List<$!{domain}VO> list() {
+        // 获取列表数据
+        List<$!{domain}DO> $!{domainLow}s = $!{domainLow}Repository.findAll();
+        return $!{domain}Converter.convertTo($!{domainLow}s);
+    }
+
+    @Override
+    public Page<$!{domain}VO> page(int page, int size) {
+        // 构建分页数据
+        Pageable pageable = PageRequest.of(page, size);
+        return $!{domain}Converter.convertTo($!{domainLow}Repository.findAll(pageable));
+    }
+}

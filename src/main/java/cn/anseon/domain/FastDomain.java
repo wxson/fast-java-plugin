@@ -1,5 +1,7 @@
 package cn.anseon.domain;
 
+import cn.anseon.enums.PersistenceTypeEnum;
+
 import java.util.List;
 
 /**
@@ -12,9 +14,9 @@ public class FastDomain {
      */
     private String domainMapping;
     /**
-     * 是否依赖fast-java
+     * 选择数据库类型
      */
-    private Boolean dependFastJava;
+    private PersistenceTypeEnum persistenceType;
     /**
      * action 目录
      */
@@ -31,15 +33,6 @@ public class FastDomain {
      * 新建类属性 json数据
      */
     private List<Property> propertyList;
-
-    public Boolean getDependFastJava() {
-        return dependFastJava;
-    }
-
-    public FastDomain setDependFastJava(Boolean dependFastJava) {
-        this.dependFastJava = dependFastJava;
-        return this;
-    }
 
     public String getFastJavaClassName() {
         return fastJavaClassName;
@@ -93,11 +86,20 @@ public class FastDomain {
         return this;
     }
 
+    public PersistenceTypeEnum getPersistenceType() {
+        return persistenceType;
+    }
+
+    public FastDomain setPersistenceType(PersistenceTypeEnum persistenceType) {
+        this.persistenceType = persistenceType;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "FastDomain{" +
                 "domainMapping='" + domainMapping + '\'' +
-                ", dependFastJava=" + dependFastJava +
+                ", persistenceType=" + persistenceType +
                 ", actionDir='" + actionDir + '\'' +
                 ", actionAbsoluteDir='" + actionAbsoluteDir + '\'' +
                 ", fastJavaClassName='" + fastJavaClassName + '\'' +

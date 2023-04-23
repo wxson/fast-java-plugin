@@ -1,0 +1,73 @@
+package $!{basePackage}.service;
+
+import $!{basePackage}.domain.dto.$!{domain}DTO;
+import $!{basePackage}.domain.vo.$!{domain}VO;
+import org.springframework.data.domain.Page;
+
+import java.util.List;
+
+/**
+ * $!{domain} interface
+ *
+ * @author $!{author}
+ * @date $!{date}
+ */
+public interface I$!{domain}Service {
+
+    /**
+     * 新增数据
+     *
+     * @param $!{domainLow}DTO 保存参数
+     * @return $!{basePackage}.domain.vo.$!{domain}VO
+     */
+     $!{domain}VO save($!{domain}DTO $!{domainLow}DTO);
+
+    /**
+     * 更新数据，默认全量更新
+     *
+     * @param $!{domainLow}DTO 保存参数
+     * @return $!{basePackage}.domain.vo.$!{domain}VO
+     */
+     $!{domain}VO update($!{domain}DTO $!{domainLow}DTO);
+
+    /**
+     * 根据ID删除数据
+     *
+     * @param $!{domainLow}Id 对象ID
+     * @return java.lang.Boolean
+     */
+#if($!{persistenceType} == "MYSQL")
+    Boolean removeById(Long $!{domainLow}Id);
+#end
+#if($!{persistenceType} == "MONGODB")
+    Boolean removeById(String $!{domainLow}Id);
+#end
+    /**
+     * 根据ID获取详情
+     *
+     * @param $!{domainLow}Id 对象ID
+     * @return java.lang.Boolean
+     */
+#if($!{persistenceType} == "MYSQL")
+    $!{domain}VO detailById(Long $!{domainLow}Id);
+#end
+#if($!{persistenceType} == "MONGODB")
+    $!{domain}VO detailById(String $!{domainLow}Id);
+#end
+
+    /**
+     * 根据条件获取列表数据
+     *
+     * @return List<$!{basePackage}.domain.vo.$!{domain}VO> 返回列表数据
+     */
+    List<$!{domain}VO> list();
+
+    /**
+     * 根据条件获取分页数据
+     *
+     * @param page 当前页
+     * @param size 每页大小
+     * @return List<$!{basePackage}.domain.vo.$!{domain}VO> 返回列表数据
+     */
+    Page<$!{domain}VO> page(int page, int size);
+}

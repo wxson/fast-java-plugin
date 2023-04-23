@@ -2,15 +2,20 @@ package cn.anseon.proxy;
 
 import cn.anseon.constants.CommonConstants;
 import cn.anseon.domain.FastDomain;
+import cn.anseon.enums.PersistenceTypeEnum;
 import cn.anseon.utils.LocalFileUtils;
 import cn.anseon.utils.TemplateSettingUtils;
 import cn.anseon.utils.VelocityUtils;
 import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.openapi.vfs.LocalFileSystem;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author GR
@@ -47,8 +52,8 @@ public class CodeGenerateProxy {
         // 获取模板与模板对象
         Map<String, String> templatePathMap = null;
         // 依赖fast-java
-        if (fastDomain.getDependFastJava()) {
-            templatePathMap = TemplateSettingUtils.getFastJavaTemplatePathMap();
+        if (PersistenceTypeEnum.MONGODB == fastDomain.getPersistenceType()) {
+            templatePathMap = TemplateSettingUtils.getMongoTemplatePathMap();
         } else {
             templatePathMap = TemplateSettingUtils.getDefaultTemplatePathMap();
         }
@@ -97,6 +102,14 @@ public class CodeGenerateProxy {
         if (templateName.startsWith(CommonConstants.DOMAIN_I_SERVICE_SUFFIX)) {
             baseDir = CommonConstants.DOMAIN_I_SERVICE_DIR;
         }
+        // Converter
+        if (templateName.startsWith(CommonConstants.DOMAIN_CONVERTER_SUFFIX)) {
+            baseDir = CommonConstants.DOMAIN_CONVERTER_DIR;
+        }
+        // Repository
+        if (templateName.startsWith(CommonConstants.DOMAIN_REPOSITORY_SUFFIX)) {
+            baseDir = CommonConstants.DOMAIN_REPOSITORY_DIR;
+        }
         // serviceImpl
         if (templateName.startsWith(CommonConstants.DOMAIN_SERVICE_IMPL_SUFFIX)) {
             baseDir = CommonConstants.DOMAIN_SERVICE_IMPL_DIR;
@@ -122,8 +135,9 @@ public class CodeGenerateProxy {
         Map<String, Object> contextMap = new HashMap<>();
         contextMap.put("author", "Fast Java");
         contextMap.put("date", this.getCurrentDate());
+        contextMap.put("persistenceType", fastDomain.getPersistenceType());
         contextMap.put("basePackage", fastDomain.getActionDir().replace("/", "."));
-        contextMap.put("domain", fastDomain.getFastJavaClassName());
+        contextMap.put("domain", fastDomain.getFastJavaClassName().substring(0, 1).toUpperCase() + fastDomain.getFastJavaClassName().substring(1));
         contextMap.put("domainLow", fastDomain.getFastJavaClassName().substring(0, 1).toLowerCase() + fastDomain.getFastJavaClassName().substring(1));
         contextMap.put("domainMapping", fastDomain.getDomainMapping());
         contextMap.put("propertyList", fastDomain.getPropertyList());
@@ -144,7 +158,7 @@ public class CodeGenerateProxy {
      * @return java.lang.String
      */
     private String getCurrentDate() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYY-MM-dd");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
         return simpleDateFormat.format(new Date());
     }
 

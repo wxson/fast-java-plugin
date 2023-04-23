@@ -18,12 +18,10 @@ public class TemplateSettingUtils {
      */
     public static Map<String, String> getDefaultTemplatePathMap() {
         Map<String, String> templateMap = new HashMap<>();
-        templateMap.put("Controller.java", "/templates/Controller.java.vm");
-        templateMap.put("Service.java", "/templates/Service.java.vm");
-        templateMap.put("ServiceImpl.java", "/templates/ServiceImpl.java.vm");
-        templateMap.put("DTO.java", "/templates/DTO.java.vm");
-        templateMap.put("DO.java", "/templates/DO.java.vm");
-        templateMap.put("VO.java", "/templates/VO.java.vm");
+        templateMap.put("ServiceImpl.java", "/templates/mysql/ServiceImpl.java.vm");
+        templateMap.put("DO.java", "/templates/mysql/DO.java.vm");
+        templateMap.put("Repository.java", "/templates/mysql/Repository.java.vm");
+        TemplateSettingUtils.putCommonPath(templateMap);
         return templateMap;
     }
 
@@ -32,14 +30,24 @@ public class TemplateSettingUtils {
      *
      * @return java.util.Map<java.lang.String, java.lang.String>
      */
-    public static Map<String, String> getFastJavaTemplatePathMap() {
+    public static Map<String, String> getMongoTemplatePathMap() {
         Map<String, String> templateMap = new HashMap<>();
-        templateMap.put("Controller.java", "/templates/mongo/Controller.java.vm");
-        templateMap.put("Service.java", "/templates/mongo/Service.java.vm");
         templateMap.put("ServiceImpl.java", "/templates/mongo/ServiceImpl.java.vm");
-        templateMap.put("DTO.java", "/templates/mongo/DTO.java.vm");
         templateMap.put("DO.java", "/templates/mongo/DO.java.vm");
-        templateMap.put("VO.java", "/templates/mongo/VO.java.vm");
+        TemplateSettingUtils.putCommonPath(templateMap);
         return templateMap;
+    }
+
+    /**
+     * 装载公共部分
+     *
+     * @param templateMap 模板信息
+     */
+    public static void putCommonPath(Map<String, String> templateMap) {
+        templateMap.put("Controller.java", "/templates/common/Controller.java.vm");
+        templateMap.put("Service.java", "/templates/common/Service.java.vm");
+        templateMap.put("DTO.java", "/templates/common/DTO.java.vm");
+        templateMap.put("VO.java", "/templates/common/VO.java.vm");
+        templateMap.put("Converter.java", "/templates/common/Converter.java.vm");
     }
 }

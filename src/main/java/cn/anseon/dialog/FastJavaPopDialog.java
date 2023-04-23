@@ -3,6 +3,7 @@ package cn.anseon.dialog;
 import cn.anseon.constants.CommonConstants;
 import cn.anseon.domain.FastDomain;
 import cn.anseon.domain.Property;
+import cn.anseon.enums.PersistenceTypeEnum;
 import cn.anseon.proxy.CodeGenerateProxy;
 import com.alibaba.fastjson.JSON;
 import com.intellij.openapi.project.Project;
@@ -11,10 +12,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -47,12 +44,10 @@ public class FastJavaPopDialog extends DialogWrapper {
         // 自动聚焦
         fastClassName.grabFocus();
         fastClassName.requestFocusInWindow();
-
     }
 
     @Override
     protected void doOKAction() {
-        // 获取输入的类名
         String fastClassNameText = fastClassName.getText();
         if (StringUtils.isBlank(fastClassNameText)) {
             return;
@@ -72,30 +67,26 @@ public class FastJavaPopDialog extends DialogWrapper {
         // 校验类名以DO、VO结尾
         else if (fastClassNameText.length() > 2) {
             String afterTwoSuffix = fastClassNameText.substring(fastClassNameText.length() - 2);
-            if (CommonConstants.DOMAIN_DO_SUFFIX.equals(afterTwoSuffix.toUpperCase()) || CommonConstants.DOMAIN_VO_SUFFIX.equals(afterTwoSuffix.toUpperCase())) {
+            if (CommonConstants.DOMAIN_DO_SUFFIX.equals(afterTwoSuffix.toUpperCase())
+                    || CommonConstants.DOMAIN_VO_SUFFIX.equals(afterTwoSuffix.toUpperCase())) {
                 fastClassNameText = fastClassNameText.substring(0, fastClassNameText.length() - 2);
             }
         }
 
-        // 属性json
         String fastClassPropertyText = fastClassProperty.getText();
-        // 构建fast java参数
         FastDomain fastDomain = new FastDomain()
                 .setActionDir(actionDir)
                 .setActionAbsoluteDir(actionAbsoluteDir)
-                .setDependFastJava(false)
+                .setPersistenceType(PersistenceTypeEnum.MYSQL)
                 .setFastJavaClassName(fastClassNameText)
                 .setPropertyList(new ArrayList<>());
 
-        // 是否依赖fast-java库
         if (tipsTickDependsOnCheckBox.isSelected()) {
-            fastDomain.setDependFastJava(true);
+            fastDomain.setPersistenceType(PersistenceTypeEnum.MONGODB);
         }
 
-        // create property
         this.buildProperty(fastDomain, fastClassPropertyText);
 
-        // 执行代码生成
         CodeGenerateProxy.getInstance().run(fastDomain);
         super.close(OK_EXIT_CODE);
     }
@@ -116,6 +107,7 @@ public class FastJavaPopDialog extends DialogWrapper {
         for (Object key : map.keySet()) {
             Property property = new Property();
             property.setName(key.toString());
+            property.setCamelCaseName(property.getName().substring(0, 1).toUpperCase() + property.getName().substring(1));
             Object value = map.get(key);
             String typeName = value.getClass().getTypeName();
             // 获取属性类型
@@ -136,6 +128,10 @@ public class FastJavaPopDialog extends DialogWrapper {
             propertyList.add(property);
         }
         fastDomain.setPropertyList(propertyList);
+    }
+
+    public static void main(String[] args) {
+
     }
 
     @Override

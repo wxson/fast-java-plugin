@@ -1,0 +1,72 @@
+package $!{basePackage}.converter;
+
+import $!{basePackage}.domain.dto.$!{domain}DTO;
+import $!{basePackage}.domain.db.$!{domain}DO;
+import $!{basePackage}.domain.vo.$!{domain}VO;
+import org.springframework.data.domain.Page;
+
+import java.util.List;
+import java.util.stream.Collectors;
+/**
+ * $!{domain}转换器
+ *
+ * @author $!{author}
+ * @date $!{date}
+ */
+public class $!{domain}Converter {
+
+    /**
+     * DTO转为DO
+     *
+     * @param $!{domainLow} 转换数据
+     * @return $!{basePackage}.domain.db.$!{domain}DO
+     */
+    public static $!{domain}DO convertTo($!{domain}DTO $!{domainLow}){
+        return $!{domain}DO.builder()
+                .id($!{domainLow}.getId())
+#foreach( $property in $!{propertyList} )
+                .${property.name}($!{domainLow}.get${property.camelCaseName}())
+#end
+                .build();
+    }
+
+    /**
+     * DO转为VO
+     *
+     * @param $!{domainLow} 转换数据
+     * @return $!{basePackage}.domain.vo.$!{domain}VO
+     */
+    public static $!{domain}VO convertTo($!{domain}DO $!{domainLow}){
+        return $!{domain}VO.builder()
+                .id($!{domainLow}.getId())
+                .creatorAt($!{domainLow}.getCreatorAt())
+                .createAt($!{domainLow}.getCreateAt())
+                .updateAt($!{domainLow}.getUpdateAt())
+#foreach( $property in $!{propertyList} )
+                .${property.name}($!{domainLow}.get${property.camelCaseName}())
+#end
+                .build();
+    }
+
+    /**
+     * 列表DO转为VO
+     *
+     * @param $!{domainLow}s 转换数据
+     * @return $!{basePackage}.domain.vo.$!{domain}VO
+     */
+    public static List<$!{domain}VO> convertTo(List<$!{domain}DO> $!{domainLow}s){
+        return $!{domainLow}s.stream()
+                .map($!{domain}Converter::convertTo)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * 分页DO转为VO
+     *
+     * @param page 转换数据
+     * @return $!{basePackage}.domain.vo.$!{domain}VO
+     */
+    public static Page<$!{domain}VO> convertTo(Page<$!{domain}DO> page){
+        return page.map($!{domain}Converter::convertTo);
+    }
+}

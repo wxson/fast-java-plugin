@@ -1,10 +1,11 @@
-package $!{basePackage}.domain.vo;
+package $!{basePackage}.domain.db;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+import javax.persistence.*;
 
 #foreach( $property in $!{propertyList} )
 #if($!property.type == "List")
@@ -12,20 +13,24 @@ import java.util.List;
 #end
 #end
 /**
+ * $!{domain} 持久类
  *
  * @author $!{author}
  * @date $!{date}
  */
+@Entity
 @Data
 @Builder
 @Accessors(chain = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class $!{domain}VO {
+@Table(name = "db_$!{domainLow}")
+public class $!{domain}DO {
     /**
      * 文档ID
      */
-    private String id;
+    @Id
+    private Long id;
 #foreach( $property in $!{propertyList} )
     /**
      *

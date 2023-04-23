@@ -1,12 +1,11 @@
 package $!{basePackage}.domain.db;
 
-import $!{basePackage}.domain.vo.$!{domain}VO;
-import cn.anseon.fastjava.domain.IBaseDO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 #foreach( $property in $!{propertyList} )
@@ -16,6 +15,7 @@ import java.util.List;
 #end
 
 /**
+ * $!{domain} 持久类
  *
  * @author $!{author}
  * @date $!{date}
@@ -26,10 +26,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Document("db_$!{domainLow}")
-public class $!{domain}DO implements IBaseDO<$!{domain}VO> {
+public class $!{domain}DO {
     /**
      * 文档ID
      */
+    @Id
     private String id;
 #foreach( $property in $!{propertyList} )
     /**

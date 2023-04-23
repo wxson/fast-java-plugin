@@ -1,0 +1,107 @@
+package $!{basePackage}.controller;
+
+import $!{basePackage}.service.I$!{domain}Service;
+import $!{basePackage}.domain.dto.$!{domain}DTO;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+#if($!{persistenceType} == "MYSQL")
+import javax.validation.constraints.NotNull;
+#end
+#if($!{persistenceType} == "MONGODB")
+import javax.validation.constraints.NotBlank;
+#end
+
+/**
+ * $!{domain} API
+ *
+ * @author $!{author}
+ * @date $!{date}
+ */
+@Slf4j
+@RestController
+@RequestMapping(value = "$!{domainMapping}")
+public class $!{domain}Controller {
+
+    @Autowired
+    private I$!{domain}Service $!{domainLow}Service;
+
+    /**
+     * 新增
+     *
+     * @param $!{domainLow}DTO 新增数据
+     * @return 新增数据
+     */
+    @PostMapping(value = "save")
+    public Object save(@Validated @RequestBody $!{domain}DTO $!{domainLow}DTO) {
+        return $!{domainLow}Service.save($!{domainLow}DTO);
+    }
+
+    /**
+     * 更新
+     *
+     * @param $!{domainLow}DTO 新增数据
+     * @return 更新数据
+     */
+    @PostMapping(value = "update")
+    public Object update(@Validated @RequestBody $!{domain}DTO $!{domainLow}DTO) {
+        return $!{domainLow}Service.update($!{domainLow}DTO);
+    }
+
+    /**
+     * 根据ID移除数据
+     *
+     * @param $!{domainLow}Id ID
+     * @return 是否删除成功
+     */
+    @GetMapping(value = "remove/{$!{domainLow}Id}")
+#if($!{persistenceType} == "MYSQL")
+    public Object removeById(@PathVariable @NotNull(message = "当前ID不能为空") Long $!{domainLow}Id) {
+#end
+#if($!{persistenceType} == "MONGODB")
+    public Object removeById(@PathVariable @NotBlank(message = "当前ID不能为空") String $!{domainLow}Id) {
+#end
+        return $!{domainLow}Service.removeById($!{domainLow}Id);
+    }
+
+    /**
+     * 根据ID获取详情
+     *
+     * @param $!{domainLow}Id ID
+     * @return 详情数据
+     */
+    @GetMapping(value = "detail/{$!{domainLow}Id}")
+#if($!{persistenceType} == "MYSQL")
+    public Object detailById(@PathVariable @NotNull(message = "当前ID不能为空") Long $!{domainLow}Id) {
+#end
+#if($!{persistenceType} == "MONGODB")
+    public Object detailById(@PathVariable @NotBlank(message = "当前ID不能为空") String $!{domainLow}Id) {
+#end
+        return $!{domainLow}Service.detailById($!{domainLow}Id);
+    }
+
+    /**
+     * TODO 所有数据列表，查询参数自定义
+     *
+     * @return 查询列表
+     */
+    @GetMapping(value = "list")
+    public Object list() {
+        return $!{domainLow}Service.list();
+    }
+
+    /**
+     * TODO 根据条件查询分页数据，查询参数自定义
+     *
+     * @param page 当前页
+     * @param size 每页大小
+     * @return 查询分页数据
+     */
+    @GetMapping(value = "page")
+    public Object page(@RequestParam(required = false, defaultValue = "0") int page,
+                       @RequestParam(required = false, defaultValue = "10") int size) {
+        return $!{domainLow}Service.page(page, size);
+    }
+}

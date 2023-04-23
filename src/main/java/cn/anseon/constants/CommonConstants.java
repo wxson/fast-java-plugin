@@ -40,6 +40,18 @@ public class CommonConstants {
     public static final String DOMAIN_I_SERVICE_DIR = "/service/";
 
     /**
+     * Converter dir
+     */
+    public static final String DOMAIN_CONVERTER_SUFFIX = "Converter";
+    public static final String DOMAIN_CONVERTER_DIR = "/converter/";
+
+    /**
+     * Repository dir
+     */
+    public static final String DOMAIN_REPOSITORY_SUFFIX = "Repository";
+    public static final String DOMAIN_REPOSITORY_DIR = "/repository/";
+
+    /**
      * ServiceImpl dir
      */
     public static final String DOMAIN_SERVICE_IMPL_SUFFIX = "ServiceImpl";

@@ -1,18 +1,107 @@
 package $!{basePackage}.service.impl;
 
+import com.mongodb.client.result.DeleteResult;
+import $!{basePackage}.domain.dto.$!{domain}DTO;
+import $!{basePackage}.domain.db.$!{domain}DO;
+import $!{basePackage}.domain.vo.$!{domain}VO;
 import $!{basePackage}.service.I$!{domain}Service;
-import lombok.AllArgsConstructor;
+import $!{basePackage}.converter.$!{domain}Converter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.*;
 
 /**
- * $!{domain} 业务逻辑层
+ * $!{domain} 业务逻辑
+ *
  * @author $!{author}
  * @date $!{date}
  */
 @Slf4j
 @Service
-@AllArgsConstructor
 public class $!{domain}ServiceImpl implements I$!{domain}Service {
 
+    @Autowired
+    private MongoTemplate mongoTemplate;
+
+    @Override
+    @Transactional
+    public $!{domain}VO save($!{domain}DTO $!{domainLow}DTO) {
+        // 转换成DO对象
+        $!{domain}DO $!{domainLow} = $!{domain}Converter.convertTo($!{domainLow}DTO);
+        // TODO 校验逻辑
+
+        // 数据存储
+        mongoTemplate.save($!{domainLow});
+        // 转换对象
+        return $!{domain}Converter.convertTo($!{domainLow});
+    }
+
+    @Override
+    @Transactional
+    public $!{domain}VO update($!{domain}DTO $!{domainLow}DTO) {
+        // 转换成DO对象
+        $!{domain}DO $!{domainLow} = $!{domain}Converter.convertTo($!{domainLow}DTO);
+        if (Objects.isNull($!{domainLow}.getId())){
+            throw new RuntimeException("当前更新对象ID为空");
+        }
+        // TODO 业务逻辑校验
+
+        // 数据存储
+        mongoTemplate.save($!{domainLow});
+        // 转换对象
+        return $!{domain}Converter.convertTo($!{domainLow});
+    }
+
+    @Override
+    @Transactional
+    public Boolean removeById(String $!{domainLow}Id) {
+        // TODO 业务逻辑校验
+
+        // 根据ID删除对象数据
+        Criteria criteria = Criteria.where("_id").is($!{domainLow}Id);
+        Query query = new Query(criteria);
+        // 执行删除语句
+        DeleteResult deleteResult = mongoTemplate.remove(query, $!{domain}DO.class);
+        return deleteResult.getDeletedCount() > 0;
+    }
+
+    @Override
+    public $!{domain}VO detailById(String $!{domainLow}Id) {
+        // 根据ID获取已存在的对象数据
+        $!{domain}DO exist$!{domain} = Optional.ofNullable(mongoTemplate.findById($!{domainLow}Id, $!{domain}DO.class))
+                .orElseThrow(() -> new RuntimeException("当前数据不存在"));
+        // 转换对象
+        return $!{domain}Converter.convertTo(exist$!{domain});
+    }
+
+    @Override
+    public List<$!{domain}VO> list() {
+        // 获取列表数据
+        List<$!{domain}DO> $!{domain}s = mongoTemplate.findAll($!{domain}DO.class);
+        return $!{domain}Converter.convertTo($!{domain}s);
+    }
+
+    @Override
+    public Page<$!{domain}VO> page(int page, int size) {
+        // TODO 构建查询条件
+
+        // 构建查询条件
+        Query query = new Query();
+        query.skip((page - 1) * size);
+        query.limit(size);
+        // 获取符合条件的总数
+        long count = mongoTemplate.count(query, $!{domain}DO.class);
+        // 查询分页数据
+        List<$!{domain}DO> $!{domain}s = mongoTemplate.find(query, $!{domain}DO.class);
+        return $!{domain}Converter.convertTo(new PageImpl($!{domain}s, PageRequest.of(page, size), count));
+    }
 }

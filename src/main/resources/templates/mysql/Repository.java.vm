@@ -1,0 +1,16 @@
+package $!{basePackage}.repository;
+
+import $!{basePackage}.domain.db.$!{domain}DO;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+/**
+ * $!{domain}持久化
+ *
+ * @author $!{author}
+ * @date $!{date}
+ */
+@Repository
+public interface $!{domain}Repository extends JpaRepository<$!{domain}DO, Long> {
+
+}
