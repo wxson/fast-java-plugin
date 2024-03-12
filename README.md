@@ -1,32 +1,42 @@
-# fast-java-plugin
-fast-java-plugin is a fast code generation tool.Contains domains, Controllers, and commonly used service directories.
-_Tips: For now, only MongoDB is supported_
-## Matches artillery
+#### 🌈 介绍
+🎉🎉🔥Fast-Java-Plugin是一个快速代码生成工具的IDEA 插件，支持MySql、MongoDB数据库。
+> 为什么会有这个插件：
+>> 试想一下，开发过程中，是不是避免不了增删改查，新增一个功能，往往要重复性的不停的去创建save、update、delete、list、page等等接口。   
+>> 
+>> 难吗？不难，恶心吗？恶心。
+>>
+>> 所以，也就有了<a target="_blank" href="https://gitee.com/wxson/easy-cloud-admin.git">Fast-Java-Plugin</a>插件。
+#### 💒 优势
+* 节省繁琐和重复的创建操作;
+* 免去建表创建对象的繁琐逻辑，通过JSON字符串就可实现整个功能的业务逻辑;
+* 效率提高，打个比方，创建一个用户管理的功能，实现传统的增删改查逻辑功能，调试。快的话10分钟要吧？使用<a target="_blank" href="https://gitee.com/wxson/easy-cloud-admin.git">Fast-Java-Plugin</a>插件，1分钟搞定，且逻辑基本正确，不符合的逻辑部分轻微改动适配即可。
+#### 💝️ 预览
 ![](/gif/example.gif)
-## fast-java-plugin goals
-* Save tedious and repetitive creation operation;
-* Quickly create entity objects from JSON strings;
-* Eliminate the tedious creation of basic business logic functions.
-## code structure
-The premise for using the fast-java-plugin is that you should agree with the plugin's directory structure design.   
+#### ⛱️ 操作
+> 请注意：如果要使用该插件，那么，您必须要认同插件所默认的业务层级结构以及命名方式。
+* 1、Idea搜索插件Fast-Java安装或下载安装包进行离线安装；
+* 2、点击要生成的业务逻辑目录，比如com.easy.cloud.upms.biz，右键——>新建——Fast Java Class；
+* 3、在弹出框中输入实体类名称，如：User，内容框中输入实体类的JSON字符串，点击确定，即可得到以下目录结构代码；
 ```
-|—— cn.anseon
+|—— com.easy.cloud.upms.biz
     |—— controller
-       |—— TestController.java
+       |—— UserController.java
     |—— domain
         |—— db
-            |—— TestDO.java
+            |—— UserDO.java
         |—— dto
-            |—— TestDTO.java
+            |—— UserDTO.java
         |—— vo
-            |—— TestVO.java
-    // MySQL
-    |-- repository
-        |-- TestRepository.java
+            |—— UserVO.java
+    |—— converter
+        |—— UserConverter.java
+    |—— repository
+        |—— UserRepository.java
     |—— service
         |—— impl
-            |—— TestServiceImpl.java
-        |—— ITestService.java
+            |—— UserServiceImpl.java
+        |—— IUserService.java
 ```
-## Plugin Usage
-Search the IDEA plugin Fast-Java or download the ZIP plugin.After the installation is complete, right-click the path you want to generate, click New-Fast Class Java, and then enter the name of the business entity Class you want to generate. Click OK. You can also enter the JSON of the entity object you want to generate
+#### 💌 支持作者
+如果觉得框架不错，或者已经在使用了，希望你可以去<a target="_blank" href="https://gitee.com/wxson/easy-cloud-admin.git">Gitee</a> 或 <a target="_blank" href="https://github.com/wxson/easy-cloud-service.git">GitHub</a> 帮我点个 ⭐
+Star，这将是对我极大的鼓励与支持。也可以一起完善该插件，让他更完善。
